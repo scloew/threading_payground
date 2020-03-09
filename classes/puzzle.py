@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from random import randint
 from .cell import Cell
 from .group import Group
 from ._contants import status
@@ -11,7 +11,7 @@ class Puzzle:
     """
     def __init__(self, cells_values, logger=None):
         date = datetime.now().strftime("%m_%d_%Y-%H_%M_%S")
-        self.logger = logger if logger else open(f'.\\logs\\{date}.log', 'a') #TODO logging is a little clunky
+        self.logger = logger if logger else open(f'.\\logs\\{randint(0,10000)}-{date}.log', 'a') #TODO logging is a little clunky
         self.original = False if logger else True
         self.logger.write(f'\n{"=" * 8}\nBEGIN TESTING NEW PUZZLE\n{"=" * 8}\n\n')
         self.cells = [[Cell(c) for c in row] for row in cells_values]

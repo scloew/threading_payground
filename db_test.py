@@ -2,6 +2,7 @@ import pyodbc
 from collections import namedtuple
 from classes.puzzle_factory import build_puzzle_str, build_puzzle_file
 
+
 def get_puzzles():
     conn = pyodbc.connect(
         "Driver={SQL Server};"
@@ -14,12 +15,8 @@ def get_puzzles():
 
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Puzzles')
-    # for row in cursor:
-    #     print('test', row[3])
-    #     # print([i for i in row])
-    #     # print(type(row))
-    #     # break
     return (Puzzle(i[0], i[1], i[2], i[3]) for i in cursor)
+
 
 if __name__ == '__main__':
     puzzles = [(''.join([str(int(p.solution[i])*int(p.mask[i])) for i in range(81)]), p) for p in get_puzzles()]
